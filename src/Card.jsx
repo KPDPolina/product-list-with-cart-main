@@ -42,7 +42,7 @@ function Card({card}) {
                 {count === 0
                 ? <AddToCart click={increaseP}/>
                 : <div>
-                    <button onClick={console.log}>-</button>
+                    <button onClick={decreaseP}>-</button>
                     {count}
                     <button onClick={()=>increaseP()}>+</button>
                 </div>
