@@ -1,28 +1,20 @@
 import { useState, useEffect } from 'react';
-import { initialTodos, createTodo } from './todos.js';
+import { initialTodos, createTodo, getVisibleTodos } from './todos.js';
 
 export default function TodoList() {
   const [todos, setTodos] = useState(initialTodos);
   const [showActive, setShowActive] = useState(false);
-  const [activeTodos, setActiveTodos] = useState([]);
+  const [text, setText] = useState('');
   const [visibleTodos, setVisibleTodos] = useState([]);
-  const [footer, setFooter] = useState(null);
 
   useEffect(() => {
-    setActiveTodos(todos.filter(todo => !todo.completed));
-  }, [todos]);
+    setVisibleTodos(getVisibleTodos(todos, showActive));
+  }, [todos, showActive]);
 
-  useEffect(() => {
-    setVisibleTodos(showActive ? activeTodos : todos);
-  }, [showActive, todos, activeTodos]);
-
-  useEffect(() => {
-    setFooter(
-      <footer>
-        {activeTodos.length} todos left
-      </footer>
-    );
-  }, [activeTodos]);
+  function handleAddClick() {
+    setText('');
+    setTodos([...todos, createTodo(text)]);
+  }
 
   return (
     <>
@@ -34,7 +26,10 @@ export default function TodoList() {
         />
         Show only active todos
       </label>
-      <NewTodo onAdd={newTodo => setTodos([...todos, newTodo])} />
+      <input value={text} onChange={e => setText(e.target.value)} />
+      <button onClick={handleAddClick}>
+        Add
+      </button>
       <ul>
         {visibleTodos.map(todo => (
           <li key={todo.id}>
@@ -42,25 +37,6 @@ export default function TodoList() {
           </li>
         ))}
       </ul>
-      {footer}
-    </>
-  );
-}
-
-function NewTodo({ onAdd }) {
-  const [text, setText] = useState('');
-
-  function handleAddClick() {
-    setText('');
-    onAdd(createTodo(text));
-  }
-
-  return (
-    <>
-      <input value={text} onChange={e => setText(e.target.value)} />
-      <button onClick={handleAddClick}>
-        Add
-      </button>
     </>
   );
 }
