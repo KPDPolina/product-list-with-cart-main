@@ -1,4 +1,4 @@
-Transform data without Effects
-The TodoList below displays a list of todos. When the “Show only active todos” checkbox is ticked, completed todos are not displayed in the list. Regardless of which todos are visible, the footer displays the count of todos that are not yet completed.
+Challenge 3 of 4: Reset state without Effects
+This EditContact component receives a contact object shaped like { id, name, email } as the savedContact prop. Try editing the name and email input fields. When you press Save, the contact’s button above the form updates to the edited name. When you press Reset, any pending changes in the form are discarded. Play around with this UI to get a feel for it.
 
-Simplify this component by removing all the unnecessary state and Effects.
+When you select a contact with the buttons at the top, the form resets to reflect that contact’s details. This is done with an Effect inside EditContact.js. Remove this Effect. Find another way to reset the form when savedContact.id changes.

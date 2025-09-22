@@ -1,42 +1,49 @@
-import { useState, useEffect } from 'react';
-import { initialTodos, createTodo, getVisibleTodos } from './todos.js';
+import { useState } from 'react';
+import ContactList from './ContactList.js';
+import EditContact from './EditContact.js';
 
-export default function TodoList() {
-  const [todos, setTodos] = useState(initialTodos);
-  const [showActive, setShowActive] = useState(false);
-  const [text, setText] = useState('');
-  const [visibleTodos, setVisibleTodos] = useState([]);
+export default function ContactManager() {
+  const [
+    contacts,
+    setContacts
+  ] = useState(initialContacts);
+  const [
+    selectedId,
+    setSelectedId
+  ] = useState(0);
+  const selectedContact = contacts.find(c =>
+    c.id === selectedId
+  );
 
-  useEffect(() => {
-    setVisibleTodos(getVisibleTodos(todos, showActive));
-  }, [todos, showActive]);
-
-  function handleAddClick() {
-    setText('');
-    setTodos([...todos, createTodo(text)]);
+  function handleSave(updatedData) {
+    const nextContacts = contacts.map(c => {
+      if (c.id === updatedData.id) {
+        return updatedData;
+      } else {
+        return c;
+      }
+    });
+    setContacts(nextContacts);
   }
 
   return (
-    <>
-      <label>
-        <input
-          type="checkbox"
-          checked={showActive}
-          onChange={e => setShowActive(e.target.checked)}
-        />
-        Show only active todos
-      </label>
-      <input value={text} onChange={e => setText(e.target.value)} />
-      <button onClick={handleAddClick}>
-        Add
-      </button>
-      <ul>
-        {visibleTodos.map(todo => (
-          <li key={todo.id}>
-            {todo.completed ? <s>{todo.text}</s> : todo.text}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
+    <div>
+      <ContactList
+        contacts={contacts}
+        selectedId={selectedId}
+        onSelect={id => setSelectedId(id)}
+      />
+      <hr />
+      <EditContact
+        savedContact={selectedContact}
+        onSave={handleSave}
+      />
+    </div>
+  )
 }
+
+const initialContacts = [
+  { id: 0, name: 'Taylor', email: 'taylor@mail.com' },
+  { id: 1, name: 'Alice', email: 'alice@mail.com' },
+  { id: 2, name: 'Bob', email: 'bob@mail.com' }
+];
