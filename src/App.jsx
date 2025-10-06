@@ -4,8 +4,10 @@ import Card from './Card'
 import User from './components/User';
 import { useCartContext } from "./context";
 import { useState, useMemo, useEffect } from 'react';
+import infoWrapperHOC from './infoWrapperHOC';
 
-
+const CardWithTitle = infoWrapperHOC(Card)
+const UserWithTitle = infoWrapperHOC(User)
 
 function App() {
   // const [firstName, setFirstName] = useState('Taylor');
@@ -19,7 +21,7 @@ function App() {
   //   setCount(c => c + 1)
   // }, [firstName, lastName]);
 
-  //const { cards } = useCartContext()
+  const { cards } = useCartContext()
   // const fullName = str(firstName, lastName)
   // const fullName = useMemo(() => str(firstName, lastName), [firstName, lastName]);
 
@@ -36,11 +38,11 @@ function App() {
           {count}
           <button onClick={() => increaseP()}>+</button>
           <button onClick={() => setCount(c => c - 1)}>-</button>
-          <User count={count} key={count} />
+          <UserWithTitle count={count} key={count} title={'user'} />
         </div>
-        {/* {
-          cards.map((product) => <Card key={product.name} card={product} />)
-        } */}
+        {
+          cards.map((product) => <CardWithTitle key={product.name} card={product} title={product.name} description={product.category} />)
+        }
       </div>
     </>
   )

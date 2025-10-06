@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import Form from "../Form";
 function str(...r) {
   console.log("invoked str");
   return r.join(" ");
@@ -22,13 +23,16 @@ export default function User({ count }) {
     <div>
       <h1>{fullName}</h1>
 
-      <form>
+      <Form state={{ agreement: false, firstName, lastName }} inputs={state => <>
+
         <input
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
+          disabled={!state.agreement}
         />
-        <input value={lastName} onChange={(e) => setLastName(e.target.value)} />
-      </form>
+        <input disabled={!state.agreement} value={lastName} onChange={(e) => setLastName(e.target.value)} />
+      </>}
+      />
     </div>
   );
 }

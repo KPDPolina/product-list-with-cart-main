@@ -39,11 +39,13 @@ Advanced Patterns
 
 16. Explain the Render Props pattern with an example use case.
 
-17. How do Higher-Order Components (HOCs) differ from Render Props? 18. What are Compound Components, and when would you prefer them?
+17. How do Higher-Order Components (HOCs) differ from Render Props?
 
-18. What are some drawbacks of using HOCs?
+18. What are Compound Components, and when would you prefer them?
 
-19. Why have custom hooks largely replaced many use cases for HOCs and Render Props?
+19. What are some drawbacks of using HOCs?
+
+20. Why have custom hooks largely replaced many use cases for HOCs and Render Props?
 
 ⸻
 
