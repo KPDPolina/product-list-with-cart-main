@@ -5,6 +5,7 @@ import User from './components/User';
 import { useCartContext } from "./context";
 import { useState, useMemo, useEffect } from 'react';
 import infoWrapperHOC from './infoWrapperHOC';
+import Header from './components/Header';
 
 const CardWithTitle = infoWrapperHOC(Card)
 const UserWithTitle = infoWrapperHOC(User)
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <>
+      <Header></Header>
       <div>
         <div>
           {count}
