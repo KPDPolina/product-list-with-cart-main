@@ -5,6 +5,9 @@ import User from './components/User';
 import { useCartContext } from "./context";
 import { useState, useMemo, useEffect } from 'react';
 import infoWrapperHOC from './infoWrapperHOC';
+import { lazy } from 'react';
+
+const Comp = lazy(() => import('./Comp'));
 
 const CardWithTitle = infoWrapperHOC(Card)
 const UserWithTitle = infoWrapperHOC(User)
@@ -33,6 +36,7 @@ function App() {
 
   return (
     <>
+      {false && <Comp name='John' a={'a'} />}
       <div>
         <div>
           {count}

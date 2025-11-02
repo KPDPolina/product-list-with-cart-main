@@ -10,18 +10,57 @@ Fragments
    Для показания реакту, что это абсолютно разные дом-элементы.
    ⸻
 
-Controlled vs. Uncontrolled Components 5. What is the difference between a controlled and an uncontrolled component in React?
-controlled component - это компоненты, у которых есть некие ограничения изменения состояния, прописаные поверх дефолтных. uncontrolled component - соответственно не имеют таких ограничений. 6. Give an example of a controlled input field. What advantages does it provide?
-controlled input field - поле с валидацией или с типом вводимой информации(например только текстовое или только цифровое поле). 7. Why might uncontrolled components be preferable in some cases?
-Иногда нам не нужны ограничения на изменение состояния компонента. 8. How do you access the current value of an uncontrolled input?
-через e.target.value 9. What role does defaultValue play in uncontrolled inputs?
-Если у этого компонента небыло изменений состояния, то его e.target.value неопределено. defaultValue ставят, что бы небыло ошибок при дальнейшей обработке данного инпута.
-⸻
+Controlled vs. Uncontrolled Components
+
+5. What is the difference between a controlled and an uncontrolled component in React?
+   controlled component - это компоненты, у которых есть некие ограничения изменения состояния, прописаные поверх дефолтных. uncontrolled component - соответственно не имеют таких ограничений.
+
+6. Give an example of a controlled input field. What advantages does it provide?
+   controlled input field - поле с валидацией или с типом вводимой информации(например только текстовое или только цифровое поле).
+
+7. Why might uncontrolled components be preferable in some cases?
+   Иногда нам не нужны ограничения на изменение состояния компонента.
+
+8. How do you access the current value of an uncontrolled input?
+   через e.target.value
+
+9. What role does defaultValue play in uncontrolled inputs?
+   Если у этого компонента небыло изменений состояния, то его e.target.value неопределено. defaultValue ставят, что бы небыло ошибок при дальнейшей обработке данного инпута.
+   ⸻
 
 Performance Optimization
 
 10. What does React.memo do, and when should you use it?
+
+```javascript
+const res = useMemo(() => a + b, [a, b]);
+
+const Comp = memo(
+  ({ name, a }) => {
+    console.log('ok')
+    return (
+      <div>
+        {name} has {a}
+      </div>
+    );
+  },
+  [name, a]
+);
+// component
+
+ const [name, setName] = useState('John')
+ const [a, setA] = useState(4)
+ const [b, setB] = useState(4)
+    return(
+        {//}
+        <Comp name={name} a={a}>
+        {//}
+    )
+
+```
+
     React.memo позволяет не обновлять значение переменной при перерендере компонента, если состояния от которых зависит переменная не обновились.
+
 11. How is React.PureComponent different from a normal Component?
     React.PureComponent оптимизируется самим реактом. В нем нет useEffect.
 12. What is shouldComponentUpdate, and how can it improve performance?
